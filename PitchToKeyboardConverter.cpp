@@ -6,6 +6,9 @@ PitchToKeyboardConverter::PitchToKeyboardConverter(int minP, int maxP) {
 	maxPitch = maxP;
 }
 
-void PitchToKeyboardConverter::Convert(LightStatus* lightS, LEDStatus* ledS) {
-	ledS->Add()
+void PitchToKeyboardConverter::Convert(LightStatus* lightS, LinkedList<LEDStatus>* ledS) {
+	for (int i = 0; i < lightS->size(); i++) {
+		Pair p = lightS->get(i);
+		ledS->add(Pair(p.first - minPitch, p.second));
+	}
 }

@@ -24,10 +24,12 @@ public:
 
 private:
 	LinkedList<Pair>* lightStatus;
-	LinkedList<Pair> ledStatus;
+	LinkedList<Pair>* ledStatus;
 	ShiftRegisterController* shiftReg;
 	PitchToKeyboardConverter* converter;
 
+	bool compare(LinkedList<Pair>* lStatus);
+	void update(LinkedList<Pair>* lStatus);
 };
 
 #endif //LIGHT_CONTROLLER_H

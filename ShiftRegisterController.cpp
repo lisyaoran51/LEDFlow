@@ -1,12 +1,24 @@
 #include "ShiftRegisterController.h"
 
 
-ShiftRegisterController::ShiftRegisterController(int latch, int clock, int data, int kAmount, int lLength) {
+ShiftRegisterController::ShiftRegisterController(int latch, int clock, int data, int keyAmount, int ledLength) {
 	latchPin = latch;
 	clockPin = clock;
 	dataPin = data;
-	keyAmount = kAmount;
-	ledLength = lLength;
+	col = keyAmount;
+	row = ledLength;
+
+	rowReg = row / 8 + (row % 8 > 0 ? 1 : 0);
+	colReg = col / 8 + (col % 8 > 0 ? 1 : 0);
+	totalReg = rowReg + colReg;
+
+	bytes = new byte*[row];
+	for (int i = 0; i < row; i++) {
+		bytes[i] = new byte[totalReg];
+		for (int j = 0; j < totalReg; j++) {
+			bytes[i][j] = 0b00000000;
+		}
+	}
 
 	pinMode(latchPin, OUTPUT);
 	pinMode(clockPin, OUTPUT);
@@ -15,28 +27,28 @@ ShiftRegisterController::ShiftRegisterController(int latch, int clock, int data,
 }
 
 
-void ShiftRegisterController::Set(LedStatus* lStatus) {
+void ShiftRegisterController::Set(LinkedList<Pair>* lStatus) {
+
+
+	ByteBuilder byteBuilders[row];
+	for (int i = 0; i < row; i++) {
+		byteBuilders[i].Set(rowReg, colReg);
+	}
 
 	Pair p = Pair(0, 0);
-
-	clear();
-
-	for (Iterator* i = lStatus->GetIterator(); i->HasNext(); i->Next()) 
+	for (int i = 0; i < lStatus->size(); i++)
 	{
-		p = i->Get();
-		ledStatus->Add(p);
-		
-		// convert to bytes
-		byteConverter.Convert(
-			&bytes,
-			ledLength % 8 > 0 ? ledLength / 8 + 1 : ledLength / 8, // get y dimension 595 amounts by key length
-			p.First);
+		p = lStatus->get(i);
 
-		byteConverter.Convert(
-			&bytes,
-			keyAmount % 8 > 0 ? keyAmount / 8 + 1 : keyAmount / 8, // get dimension of 74hc595 amounts by key amounts
-			p.Second);
+		/*
+		 * put the key(p.first) into the builder which contains the specific led light row(p.second)
+		 */
+		byteBuilders[p.second].Add(p.first);
+	}
 
+	for (int i = 0; i < row; i++) {
+		free(bytes[i]);
+		bytes[i] = byteBuilders[i].Build();
 	}
 }
 

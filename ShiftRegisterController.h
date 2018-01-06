@@ -17,18 +17,20 @@ class ShiftRegisterController
 {
 public:
 	ShiftRegisterController(int latch, int clock, int data, int kAmount, int lLength);
-	void Set(LedStatus* lStatus);
+	void Set(LinkedList<Pair>* lStatus);
 	void Run();
 
 private:
 	int latchPin;
 	int clockPin;
 	int dataPin;
-	int keyAmount;
-	int ledLength;
+	int row;
+	int col;
+	int rowReg;
+	int colReg;
+	int totalReg;
 
-	LinkedList<Pair> ledStatus;
-	LinkedList<uint8_t*> bytes;
+	Byte** bytes;
 	
 	static ByteConverter byteConverter;
 
