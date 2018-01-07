@@ -9,7 +9,6 @@
 
 #include <string.h>
 #include <LinkedList.h> 
-#include "LightStatus.h"
 #include "Pair.h"
 #include "ShiftRegisterController.h"
 #include "PitchToKeyboardConverter.h"
@@ -19,7 +18,7 @@ class LightController
 {
 public:
 	LightController(ShiftRegisterController* sReg, PitchToKeyboardConverter* cnvr);
-	void Light();
+	void Run();
 	void Update(LinkedList<Pair>* lStatus);
 
 private:

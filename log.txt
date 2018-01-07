@@ -3,3 +3,9 @@
 
 1/3
 多一個ByteConverter
+
+1/7
+把lightStatus改成linked List
+把Byte Converter改成Byte Builder
+寫好PitchToKeyboardConverter
+接下來要完成Byte Converter和Main

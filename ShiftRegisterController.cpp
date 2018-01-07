@@ -32,10 +32,10 @@ void ShiftRegisterController::Set(LinkedList<Pair>* lStatus) {
 
 	ByteBuilder byteBuilders[row];
 	for (int i = 0; i < row; i++) {
-		byteBuilders[i].Set(rowReg, colReg);
+		byteBuilders[i].Set(i, rowReg, colReg);
 	}
 
-	Pair p = Pair(0, 0);
+	Pair p;
 	for (int i = 0; i < lStatus->size(); i++)
 	{
 		p = lStatus->get(i);
@@ -47,29 +47,35 @@ void ShiftRegisterController::Set(LinkedList<Pair>* lStatus) {
 	}
 
 	for (int i = 0; i < row; i++) {
-		free(bytes[i]);
+		delete [] bytes[i];
 		bytes[i] = byteBuilders[i].Build();
 	}
 }
 
-void ShiftRegisterController::Run() {
-	// turn off led
-	digitalWrite(latchPin, LOW);
+void ShiftRegisterController::Run() 
+{
+	for (int i = 0; i < row; i++) {
+		// turn off led
+		digitalWrite(latchPin, LOW);
 
-	// change data
-	for (int i = 0; i < bytes.size(); i++) {
-		shiftOut(dataPin, clockPin, MSBFIRST, bytes.get(i));
+		// change data
+		for (int j = 0; j < totalReg; j++) {
+			shiftOut(dataPin, clockPin, MSBFIRST, bytes[i][j]);
+		}
+
+		// turn on led
+		digitalWrite(latchPin, HIGH);
+
+		// stay lightened for a while
+		// delay(40);
 	}
-
-	// turn on led
-	digitalWrite(latchPin, HIGH);
+	
 }
 
 void ShiftRegisterController::clear() {
-	ledStatus.clear();
 
-	for (int i = 0; i < bytes.size(); i++) {
-		free(bytes.get(i));
+	for (int i = 0; i < totalReg; i++) {
+		delete [] bytes[i];
 	}
-	bytes.clear();
+	delete [] bytes;
 }

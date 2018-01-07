@@ -9,8 +9,6 @@
 
 #include <string.h>
 #include <LinkedList.h> 
-#include "LightStatus.h"
-#include "LEDStatus.h"
 #include "Pair.h"
 
 
@@ -18,7 +16,7 @@ class PitchToKeyboardConverter
 {
 public:
 	PitchToKeyboardConverter(int minP, int maxP);
-	void Convert(LightStatus* lightS, LinkedList<LEDStatus>* ledS);
+	void Convert(LinkedList<Pair>* lightS, LinkedList<Pair>* ledS);
 
 private:
 	int minPitch;

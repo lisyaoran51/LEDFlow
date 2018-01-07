@@ -7,14 +7,14 @@ LightController::LightController(ShiftRegisterController* sReg, PitchToKeyboardC
 	ledStatus = new LinkedList<Pair>();
 }
 
-void LightController::Light() {
-	shiftReg->ShiftOut();
+void LightController::Run() {
+	shiftReg->Run();
 }
 
 void LightController::Update(LinkedList<Pair>* lStatus) {
 	
 	//if (lightStatus->Compare(lStatus)) return;
-	if (compare(lightStatus, lStatus))
+	if (compare(lStatus))
 		return;
 		
 	update(lStatus);

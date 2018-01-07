@@ -10,15 +10,18 @@ StatusConverter::StatusConverter(int wLights, int wDest, int bLights, int bDest)
 void StatusConverter::Convert(LinkedList<Event*>* events, LinkedList<Pair>* lStatus)
 {
 	for (int i = 0; i < events->size(); i++) {
-		Event* e = events->get(i);
+		NoteEvent* e = (NoteEvent*)events->get(i);
 
 		int pitch = e->GetPitch();
-		int led = ComputeLED(pitch, e->GetTimeLeft(), e->GetTotalTime);
+		int led = ComputeLED(pitch, e->GetTimeLeft(), e->GetTotalTime());
 
 		if (led == -1) 
 			return;
-
-		lStatus->Add(Pair(pitch, led));
+     
+    Pair p;
+    p.first = pitch;
+    p.second = led;
+		lStatus->add(p);
 	}
 }
 
@@ -37,3 +40,18 @@ int StatusConverter::ComputeLED(int pitch, float timeLeft, float totalTime) {
 
 	return (int)lightPlace > 0 ? (int)lightPlace : 0;
 }
+
+bool StatusConverter::isWhite(int pitch){
+  int k = pitch % 12;
+  if( k == 0 || 
+      k == 2 ||
+      k == 4 ||
+      k == 5 ||
+      k == 7 ||
+      k == 9 ||
+      k == 11 )
+      return true;
+  else
+      return false;
+}
+

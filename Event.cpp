@@ -1,7 +1,8 @@
 #include "Event.h"
 
-void virtual Event::PassBy(float deltaTime) {}
-bool virtual Event::IsAlive() { return false; }
+Event::Event(){}
+void Event::PassBy(float deltaTime) {}
+bool Event::IsAlive() { return false; }
 
 
 
@@ -19,3 +20,16 @@ void NoteEvent::PassBy(float deltaTime) {
 bool NoteEvent::IsAlive() {
 	return timeLeft < deadTime;
 }
+
+int NoteEvent::GetPitch(){
+  return pitch;
+}
+
+float NoteEvent::GetTimeLeft(){
+  return timeLeft;
+}
+
+float NoteEvent::GetTotalTime(){
+  return totalTime;
+}
+

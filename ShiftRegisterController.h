@@ -9,9 +9,9 @@
 
 #include <string.h>
 #include <LinkedList.h> 
-#include "LightStatus.h"
 #include "Pair.h"
-#include "ByteConverter.h"
+#include "ByteBuilder.h"
+
 
 class ShiftRegisterController
 {
@@ -30,9 +30,9 @@ private:
 	int colReg;
 	int totalReg;
 
-	Byte** bytes;
+	byte** bytes;
 	
-	static ByteConverter byteConverter;
+	static ByteBuilder bytebuilder;
 
 	void clear();
 };

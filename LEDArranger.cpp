@@ -1,7 +1,7 @@
 #include "LEDArranger.h"
 
 LEDArranger::LEDArranger(StatusConverter* sConverter) {
-	startTime = clock();
+	startTime = millis();
 	converter = sConverter;
 }
 
@@ -10,13 +10,13 @@ void LEDArranger::AddEvents(LinkedList<Event*>* newEvents)
 	for (int i = 0; i < newEvents->size(); i++) {
 		events.add(newEvents->get(i));
 	}
-	free(newEvents);
+	delete [] newEvents;
 }
 
 void LEDArranger::Update() 
 {
-	long nowTime = clock();
-	long deltaTime = now - lastTime;
+	long nowTime = millis();
+	long deltaTime = nowTime - lastTime;
 	/*
 	 * pass every event update time, kill dead ones
 	 */
@@ -27,7 +27,7 @@ void LEDArranger::Update()
 		
 		if (!e->IsAlive()) {
 			events.remove(i);
-			free(e);
+			delete e;
 			i--;
 		}
 	}
@@ -35,5 +35,5 @@ void LEDArranger::Update()
 
 void LEDArranger::Arrange(LinkedList<Pair>* lightStatus)
 {
-	converter.Convert(&events, lightStatus);
+	converter->Convert(&events, lightStatus);
 }

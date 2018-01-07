@@ -4,45 +4,21 @@
 
 EventReceiver::EventReceiver() 
 {
-	events = new LinkedList<Event*>();
-	//sCmds = SerialCommand();
-	sCmds.addCommand("Event", receive);
+  events = new LinkedList<Event*>();
+  sCommand = &sCmds;
+  sCmds.addCommand("Event", ReadSerial);
 }
 
-void EventReceiver::receive() {
-	if (events.size() != 0) {
-		//Serial.println("Error: EventReceiver::Receive() failed to receive because events is not empty.");
-		//pinMode(13, OUTPUT);
-		//while (1) {
-		//	digitalWrite(13, HIGH);  // to warn user by blinking lights
-		//	delay(100);
-		//	digitalWrite(13, LOW);
-		//	delay(100);
-		//}
+void EventReceiver::getEvent() {
+  for(int i = 0; i < bufEvents.size(); i++){
+    events->add(bufEvents.get(i));
 	}
-	char *arg;
-	arg = sCmds.next();    // Get the next argument from the SerialCommand object buffer
-	Event* e = NULL;
-	if (arg != NULL)      // As long as it existed, take it
-	{
-
-		switch (arg) {
-		case "Note":
-			arg = sCmds.next();
-			if (arg == NULL) break;
-			int pitch = atoi(arg);
-			arg = sCmds.next();
-			if (arg == NULL) break;
-			float timeLeft = atof(arg);
-			e = new NoteEvent(pitch, timeLeft);
-			events.add(e);
-			break;
-		}
-	}
+  bufEvents.clear();
 }
 
 void EventReceiver::Receive() {
 	sCmds.readSerial();
+  getEvent();
 }
 
 LinkedList<Event*>* EventReceiver::Pop() 
@@ -51,3 +27,25 @@ LinkedList<Event*>* EventReceiver::Pop()
 	events = new LinkedList<Event*>();
 	return listToPop;
 }
+
+static void EventReceiver::ReadSerial(){
+  char *arg;
+  Event* e;
+  arg = sCommand->next();    // Get the next argument from the SerialCommand object buffer
+  if (arg != NULL)      // As long as it existed, take it
+  {
+
+    if(strcmp(arg, "Note")){
+      arg = sCommand->next();
+      if (arg == NULL) return;
+      int pitch = atoi(arg);
+      arg = sCommand->next();
+      if (arg == NULL) return;
+      float timeLeft = atof(arg);
+      e = new NoteEvent(pitch, timeLeft);
+      bufEvents.add(e);
+    }
+  }
+  
+ }
+

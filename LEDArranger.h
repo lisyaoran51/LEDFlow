@@ -9,7 +9,6 @@
 
 #include <string.h>
 #include <LinkedList.h> 
-#include "time.h" 
 #include "Event.h" 
 #include "StatusConverter.h"
 #include "Pair.h"

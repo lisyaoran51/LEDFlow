@@ -14,19 +14,27 @@
 #include <stdlib.h>     /* atof */
 #include "Event.h"
 
+static LinkedList<Event*> bufEvents;
+static SerialCommand* sCommand;
+
 
 class EventReceiver
 {
 public:
 	EventReceiver();
 
+  void Receive();
+  
+  static void ReadSerial();
 	void PassBy();
 	LinkedList<Event*>* Pop();
-
+  
+  
 private:
-	LinkedList<Event*> events;
+	LinkedList<Event*>* events;
 	SerialCommand sCmds;
-	void receive();
+
+  void getEvent();
 };
 
 #endif //EVENT_RECEIVER_H

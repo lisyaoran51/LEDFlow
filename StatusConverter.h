@@ -11,7 +11,6 @@
 #include <LinkedList.h> 
 #include "time.h" 
 #include "Event.h" 
-#include "LightStatus.h"
 #include "Pair.h"
 #include <LinkedList.h> 
 
@@ -29,6 +28,7 @@ private:
 	int blackDest; 
 
 	int ComputeLED(int pitch, float timeLeft, float totalTime);
+  bool isWhite(int pitch);
 };
 
 #endif //LED_ARRANGER_H

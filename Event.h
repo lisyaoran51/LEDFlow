@@ -8,14 +8,14 @@
 #endif
 
 
-#define NOTE_DEAD_TIME 1.0
+#define NOTE_DEAD_TIME -1000.0
 
 
 class Event {
 public:
 	Event();
-	void virtual PassBy(float deltaTime);
-	bool virtual IsAlive();
+	virtual void PassBy(float deltaTime);
+	virtual bool IsAlive();
 
 protected:
 	float totalTime;
@@ -27,6 +27,12 @@ class NoteEvent: public Event
 {
 public:
 	NoteEvent(int p, float tLeft);
+
+  void PassBy(float deltaTime);
+  bool IsAlive();
+  int GetPitch();
+  float GetTimeLeft();
+  float GetTotalTime();
 private:
 	int pitch;
 	float timeLeft;

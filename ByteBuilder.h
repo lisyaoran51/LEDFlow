@@ -15,13 +15,15 @@
 class ByteBuilder
 {
 public:
-	ByteBuilder* Set(int rReg, int cReg);
+	ByteBuilder* Set(int lNum, int rReg, int cReg);
 	ByteBuilder* Add(int key);
-	Byte* Build();
+	byte* Build();
 
 private:
 	int rowReg;
 	int colReg;
+	int totalReg;
+	int ledNum;
 	LinkedList<int> keys;
 };
 
