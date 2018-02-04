@@ -12,6 +12,7 @@ EventReceiver::EventReceiver()
 void EventReceiver::getEvent() {
   for(int i = 0; i < bufEvents.size(); i++){
     events->add(bufEvents.get(i));
+    DEBUG_PRINTLN("Event Receiver Got Event");
 	}
   bufEvents.clear();
 }
@@ -28,6 +29,10 @@ LinkedList<Event*>* EventReceiver::Pop()
 	return listToPop;
 }
 
+int EventReceiver::Size(){
+  return events->size();
+}
+
 static void EventReceiver::ReadSerial(){
   char *arg;
   Event* e;
@@ -35,17 +40,22 @@ static void EventReceiver::ReadSerial(){
   if (arg != NULL)      // As long as it existed, take it
   {
 
-    if(strcmp(arg, "Note")){
+    if(strcmp(arg, "Note") == 0){
+      DEBUG_PRINT(arg);
       arg = sCommand->next();
       if (arg == NULL) return;
       int pitch = atoi(arg);
+      DEBUG_PRINT(arg);
       arg = sCommand->next();
       if (arg == NULL) return;
       float timeLeft = atof(arg);
+      DEBUG_PRINTLN(arg);
       e = new NoteEvent(pitch, timeLeft);
       bufEvents.add(e);
     }
   }
   
  }
+
+
 

@@ -12,6 +12,7 @@
 #include "Pair.h"
 #include "ShiftRegisterController.h"
 #include "PitchToKeyboardConverter.h"
+#include "Debug.h"
 
 
 class LightController
@@ -32,3 +33,5 @@ private:
 };
 
 #endif //LIGHT_CONTROLLER_H
+
+

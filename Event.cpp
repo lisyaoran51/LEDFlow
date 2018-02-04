@@ -18,7 +18,7 @@ void NoteEvent::PassBy(float deltaTime) {
 }
 
 bool NoteEvent::IsAlive() {
-	return timeLeft < deadTime;
+	return timeLeft > deadTime;
 }
 
 int NoteEvent::GetPitch(){
@@ -32,4 +32,6 @@ float NoteEvent::GetTimeLeft(){
 float NoteEvent::GetTotalTime(){
   return totalTime;
 }
+
+
 

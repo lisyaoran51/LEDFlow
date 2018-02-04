@@ -79,3 +79,5 @@ void ShiftRegisterController::clear() {
 	}
 	delete [] bytes;
 }
+
+

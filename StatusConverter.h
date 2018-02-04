@@ -13,6 +13,7 @@
 #include "Event.h" 
 #include "Pair.h"
 #include <LinkedList.h> 
+#include "Debug.h"
 
 
 class StatusConverter
@@ -20,6 +21,10 @@ class StatusConverter
 public:
 	StatusConverter(int wLights, int wDest, int bLights, int bDest);
 	void Convert(LinkedList<Event*>* events, LinkedList<Pair>* lStatus);
+
+#ifdef DEBUG_MODE
+  bool debugbool;
+#endif
 
 private:
 	int whiteLights;		// how many light to tail of key
@@ -32,3 +37,5 @@ private:
 };
 
 #endif //LED_ARRANGER_H
+
+

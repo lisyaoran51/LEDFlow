@@ -68,7 +68,7 @@ byte* ByteBuilder::Build()
 	*	o e
 	*
 	*	|<  Max Byte  >| |< Max Byte-1 >|
-	*	�I�I�I�I�I�I�I�I �I�I�I�I�I�I�I�I
+	*	���������������� ����������������
 	*	      e d c b a  7 6 5 4 3 2 1 0
 	*/
 
@@ -95,3 +95,5 @@ byte* ByteBuilder::Build()
 
  return bytes;
 }
+
+

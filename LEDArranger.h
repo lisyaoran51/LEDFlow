@@ -7,6 +7,7 @@
 #include "WProgram.h"
 #endif
 
+#include "Debug.h"
 #include <string.h>
 #include <LinkedList.h> 
 #include "Event.h" 
@@ -24,9 +25,11 @@ public:
 
 private:
 	LinkedList<Event*> events;
-	clock_t startTime, lastTime;
+	float startTime, lastTime;
 	StatusConverter* converter;
 
 };
 
 #endif //LED_ARRANGER_H
+
+

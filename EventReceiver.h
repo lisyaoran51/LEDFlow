@@ -7,12 +7,14 @@
 #include "WProgram.h"
 #endif
 
+#include "Debug.h"
 #include <string.h>
 #include <LinkedList.h>
 #include <SoftwareSerial.h>
 #include <SerialCommand.h>
 #include <stdlib.h>     /* atof */
 #include "Event.h"
+
 
 static LinkedList<Event*> bufEvents;
 static SerialCommand* sCommand;
@@ -28,6 +30,7 @@ public:
   static void ReadSerial();
 	void PassBy();
 	LinkedList<Event*>* Pop();
+  int Size();
   
   
 private:
@@ -38,3 +41,5 @@ private:
 };
 
 #endif //EVENT_RECEIVER_H
+
+

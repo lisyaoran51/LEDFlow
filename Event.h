@@ -8,7 +8,7 @@
 #endif
 
 
-#define NOTE_DEAD_TIME -1000.0
+#define NOTE_DEAD_TIME -1.0
 
 
 class Event {
@@ -43,3 +43,5 @@ private:
 
 
 #endif //EVENT_H
+
+
