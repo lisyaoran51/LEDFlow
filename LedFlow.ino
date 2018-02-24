@@ -14,7 +14,7 @@ EventReceiver eventReceiver;
 StatusConverter statusConverter = StatusConverter(11, 10, 7, 6);                              // whiteLength, whiteDestination, blackLength, blackDestination
 LEDArranger lEDArranger = LEDArranger(&statusConverter);
 LinkedList<Pair> lightStatus;
-ShiftRegisterController shiftRegisterController = ShiftRegisterController(8, 12, 11, 36, 11); // latch, clock, data, keyAmount, ledLength
+ShiftRegisterController shiftRegisterController = ShiftRegisterController(8, 12, 11, 32, 11); // latch, clock, data, keyAmount, ledLength
 PitchToKeyboardConverter pitchToKeyboardConverter = PitchToKeyboardConverter(52, 83);         // minPitch, maxPitch
 LightController lightController = LightController(&shiftRegisterController, &pitchToKeyboardConverter);
 
@@ -23,20 +23,16 @@ Thread updateThread;
 Thread runThread;
 //int debugb = 0;
 
-void updateCallback(){
-  //thread1
-    //if(debugb==1) debugb++;                                       //
+void updateCallback(){      
+  //thread1            
     eventReceiver.Receive();
-    //if(eventReceiver.Size()>0 && debugb == 0) debugb = 1;         //
-
-    //DEBUG_PRINT("This thread debug:");
-    //DEBUG_PRINTLN(debugb);                                       //
     
     lEDArranger.AddEvents(eventReceiver.Pop());
     lEDArranger.Update();
     lEDArranger.Arrange(&lightStatus);
-    //if(debugb == 2) delay(10000);                                 //
+                            
     lightController.Update(&lightStatus);
+    
 #ifdef _DEBUG_MODE
     if(lightStatus.size() > 0) DEBUG_PRINTLN(lightStatus.size());
     for(int i = 0; i < lightStatus.size(); i++){

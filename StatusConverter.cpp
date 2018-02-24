@@ -26,7 +26,7 @@ void StatusConverter::Convert(LinkedList<Event*>* events, LinkedList<Pair>* lSta
 
 		int pitch = e->GetPitch();
 		int led = ComputeLED(pitch, e->GetTimeLeft(), e->GetTotalTime());
-#ifdef DEBUG_MODE
+#ifdef _DEBUG_MODE
     String d1 = String("LED # is") + led + ", time left is " + e->GetTimeLeft() + ", total time is " + e->GetTotalTime();
     DEBUG_PRINTLN(d1);
 #endif
@@ -39,7 +39,7 @@ void StatusConverter::Convert(LinkedList<Event*>* events, LinkedList<Pair>* lSta
 		lStatus->add(p);
    
     
-#ifdef DEBUG_MODE
+#ifdef _DEBUG_MODE
     if(debugbool) DEBUG_PRINT("lStatus have ");
     if(debugbool) DEBUG_PRINTLN(lStatus->size());
     debugbool = true;

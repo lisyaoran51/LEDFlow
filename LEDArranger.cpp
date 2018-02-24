@@ -33,7 +33,7 @@ void LEDArranger::Update()
 		e->PassBy(deltaTime);
 		
 		if (!e->IsAlive()) {
-#ifdef DEBUG_MODE
+#ifdef _DEBUG_MODE
       NoteEvent* debugE = (NoteEvent*)e;
       String d = String("Kill dead event. Now time: ") + nowTime + ", Last time: " + lastTime + ", time left: " + debugE->GetTimeLeft() + ", dead time: " + NOTE_DEAD_TIME;
       DEBUG_PRINTLN(d);
