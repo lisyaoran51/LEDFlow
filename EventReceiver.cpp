@@ -39,7 +39,6 @@ static void EventReceiver::ReadSerial(){
   arg = sCommand->next();    // Get the next argument from the SerialCommand object buffer
   if (arg != NULL)      // As long as it existed, take it
   {
-
     if(strcmp(arg, "Note") == 0){
       DEBUG_PRINT(arg);
       arg = sCommand->next();
@@ -54,8 +53,7 @@ static void EventReceiver::ReadSerial(){
       bufEvents.add(e);
     }
   }
-  
- }
+}
 
 
 

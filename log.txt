@@ -9,3 +9,6 @@
 把Byte Converter改成Byte Builder
 寫好PitchToKeyboardConverter
 接下來要完成Byte Converter和Main
+
+2/24
+發現只用4個位移暫存器，所以把位移暫存器改成4，總鍵數改32，把byte的rowByte和colByte對調。

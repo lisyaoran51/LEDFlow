@@ -11,7 +11,7 @@
 #include <string.h>
 #include <LinkedList.h>
 #include <SoftwareSerial.h>
-#include <SerialCommand.h>
+#include "MySerialCommand.h"
 #include <stdlib.h>     /* atof */
 #include "Event.h"
 
